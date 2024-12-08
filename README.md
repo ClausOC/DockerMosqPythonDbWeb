@@ -11,7 +11,7 @@ This is a Docker setup with:
 4. Maria DB
 5. Python
 
-Xdebug is added to PHP and debugpy is added to Python. This way both PHP and Python can be debugged from VS Code
+*Xdebug* is added to PHP and *debugpy* is added to Python. This way both PHP and Python can be debugged from VS Code
 
 # Mosquitto with Docker
 Info for setting up Mosquitto with Docker is borrowed from here: https://github.com/sukesh-ak/setup-mosquitto-with-docker.  
