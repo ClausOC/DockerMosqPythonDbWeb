@@ -1,0 +1,94 @@
+version: "3"
+services:
+  mqtt5_db:
+    image: eclipse-mosquitto
+    container_name: mqtt5_web
+    ports:
+      - "1883:1883" # default mqtt port
+      - "9001:9001" # default mqtt port for websockets
+    volumes:
+      - ./config:/mosquitto/config:rw
+      - ./data:/mosquitto/data:rw
+      - ./log:/mosquitto/log:rw
+    restart: unless-stopped
+
+  # MariaDB service
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb_web
+    environment:
+      MYSQL_ROOT_PASSWORD: Liva2023
+      MYSQL_DATABASE: mqttdata
+      MYSQL_USER: liva
+      MYSQL_PASSWORD: liva
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    restart: unless-stopped
+
+  # Nginx webserver
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    ports: 
+      - "8080:80"
+    networks:
+      - internal
+    volumes:
+      - ./nginx/data/:/var/www/html/
+      - ./logs/nginx:/var/log/nginx/
+
+  # PHP-FPM service
+  php:
+    build:
+      context: .
+      dockerfile: php/Dockerfile
+    networks:
+      - internal
+    environment:
+      XDEBUG_MODE: debug
+      XDEBUG_CONFIG: client_host=host.docker.internal client_port=9003
+    volumes:
+      - ./nginx/data/:/var/www/html/
+      - ./logs/php.log:/var/log/fpm-php.www.log
+
+  # Python MQTT Listener service
+  mqtt_listener:
+    build:
+      context: .
+      dockerfile: python/Dockerfile
+    container_name: mqtt_listener
+    volumes:
+      - ./scripts:/scripts
+    working_dir: /scripts
+    ports:
+      - "5678:5678"
+    depends_on:
+      - mqtt5_db
+      - mariadb
+    environment:
+      - MQTT_BROKER=mqtt5_web
+      - MQTT_PORT=1883
+      - MQTT_TOPIC=mytopic
+      - MYSQL_HOST=mariadb_web
+      - MYSQL_USER=liva
+      - MYSQL_PASSWORD=liva
+      - MYSQL_DB=mqttdata
+
+volumes:
+  config:
+  data:
+  log:
+  mariadb_data:
+  nginx_conf:
+  nginx_logs:
+  nginx_html:
+  php_conf:
+
+networks:
+  internal:
+    driver: bridge
+  default:
+    name: mqtt5-network
