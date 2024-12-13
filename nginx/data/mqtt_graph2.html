@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart.js Linjediagrammer for Hver Sensor</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .charts-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .chart-container {
+            width: 45%;
+            height: 300px;
+            margin-bottom: 30px; /* Lidt afstand mellem diagrammer */
+        }
+        @media (max-width: 900px) {
+            .chart-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="charts-container" class="charts-container"></div>
+    <script>
+        fetch('mqttdata.php')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach((sensorData, index) => {
+                    // Opret container til hvert diagram
+                    const container = document.createElement('div');
+                    container.className = 'chart-container';
+                    
+                    // Opret canvas element til hvert diagram
+                    const canvas = document.createElement('canvas');
+                    canvas.id = `chart-${index}`;
+                    container.appendChild(canvas);
+                    document.getElementById('charts-container').appendChild(container);
+                    
+                    // Opret diagram
+                    var ctx = canvas.getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: sensorData.labels,
+                            datasets: sensorData.datasets
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                x: {
+                                    display: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Tid'
+                                    }
+                                },
+                                y: {
+                                    display: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Værdi'
+                                    }
+                                },
+                                'y-axis-2': {
+                                    display: true,
+                                    position: 'right',
+                                    title: {
+                                        display: true,
+                                        text: 'Tryk'
+                                    },
+                                    grid: {
+                                        drawOnChartArea: false
+                                    }
+                                }
+                            }
+                        }
+                    });
+                });
+            })
+            .catch(error => console.error('Fejl ved hentning af data:', error));
+    </script>
+</body>
+</html>

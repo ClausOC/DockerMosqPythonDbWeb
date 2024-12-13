@@ -11,6 +11,8 @@ services:
       - ./data:/mosquitto/data:rw
       - ./log:/mosquitto/log:rw
     restart: unless-stopped
+    networks:
+      - internal
 
   # MariaDB service
   mariadb:
@@ -23,6 +25,8 @@ services:
       MYSQL_PASSWORD: liva
     ports:
       - "3306:3306"
+    networks:
+      - internal
     volumes:
       - ./mariadb_data:/var/lib/mysql
     restart: unless-stopped
@@ -71,11 +75,13 @@ services:
     environment:
       - MQTT_BROKER=mqtt5_web
       - MQTT_PORT=1883
-      - MQTT_TOPIC=mytopic
+      - MQTT_TOPIC=sensor/data
       - MYSQL_HOST=mariadb_web
       - MYSQL_USER=liva
       - MYSQL_PASSWORD=liva
       - MYSQL_DB=mqttdata
+    networks:
+      - internal
 
 volumes:
   config:
