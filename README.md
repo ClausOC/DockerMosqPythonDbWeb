@@ -18,7 +18,7 @@ Info for setting up Mosquitto with Docker is borrowed from here: https://github.
 This is a very nice guide - thanks for the good work!
 
 There are default 3 users that can connect to Mosquitto: user1, user2 and sensor.
-Passwords are user1, user2 and sensordata.
+Passwords are *user1*, *user2* and *sensordata*.
 For better security these should be deleted and more strong passwords should be used :-)
 
 # Nginx with Docker
