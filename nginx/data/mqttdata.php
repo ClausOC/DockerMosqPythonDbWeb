@@ -27,7 +27,7 @@ $sql = "SELECT
             JSON_ARRAYAGG(JSON_EXTRACT(data, '$.temperature')) AS temp,
             JSON_ARRAYAGG(JSON_EXTRACT(data, '$.humidity')) AS hum,
             JSON_ARRAYAGG(JSON_EXTRACT(data, '$.pressure')) AS press,
-            JSON_ARRAYAGG(created) AS lbl
+            JSON_ARRAYAGG(created ORDER BY created ASC) AS lbl
         FROM
             mqttdata_received
         GROUP BY
