@@ -1,8 +1,8 @@
 <?php
 header('Content-Type: application/json');
 $servername = 'mariadb_web';
-$username = 'liva';
-$password = 'liva';
+$username = 'mysqlUser';
+$password = 'mysqlPwd';
 $dbname = 'mqttdata';
 
 // Opret forbindelse

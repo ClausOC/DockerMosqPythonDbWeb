@@ -42,11 +42,11 @@ def insert_into_db(payload):
     connection = None
     try:
         connection = mysql.connector.connect(
-            host='mariadb_web',
-            database='mqttdata',
-            user='liva',
-            password='liva', 
-            collation='utf8mb4_unicode_ci'
+            host = MYSQL_HOST,
+            database = MYSQL_DB,
+            user = MYSQL_USER,
+            password = MYSQL_PASSWORD, 
+            collation = 'utf8mb4_unicode_ci'
         )
         check_and_create_table(connection, 'mqttdata_received')
         

@@ -14,13 +14,25 @@ This is a Docker setup with:
 *Xdebug* is added to PHP and *debugpy* is added to Python. This way both PHP and Python can be debugged from VS Code
 
 # Mosquitto with Docker
-Info for setting up Mosquitto with Docker is borrowed from here: https://github.com/sukesh-ak/setup-mosquitto-with-docker.  
-This is a very nice guide - thanks for the good work!
+Info for setting up Mosquitto with Docker is borrowed from here: [setup-mosquitto-with-docker](https://github.com/sukesh-ak/setup-mosquitto-with-docker).  
+This is a very nice guide - thanks for the good work!  
+Also, [How to Configure Mosquitto MQTT Broker in Docker](https://cedalo.com/blog/mosquitto-docker-configuration-ultimate-guide/) is a good guide describing, among other things, how to add a user and setting password in Mosquitto in a docker container.
 
-There are default 3 users that can connect to Mosquitto: user1, user2 and sensor.
+In this setup, there are 3 users that can connect to Mosquitto: *user1*, *user2* and *sensor*.
 Passwords are *user1*, *user2* and *sensordata*.
 For better security these should be deleted and more strong passwords should be used :-)
 
 # Nginx with Docker
 The setup info is a mix from many different sites and stackoverflow question/answers.
+
+# PHP with XDebug
+The setup info is a mix from many different sites and stackoverflow question/answers.
+
+# Maria DB
+The setup info is a mix from many different sites and stackoverflow question/answers.
+
+# Python with debugpy
+The setup info is a mix from many different sites and stackoverflow question/answers.
+
+
 

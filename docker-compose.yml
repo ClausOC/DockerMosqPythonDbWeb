@@ -19,10 +19,10 @@ services:
     image: mariadb:latest
     container_name: mariadb_web
     environment:
-      MYSQL_ROOT_PASSWORD: Liva2023
+      MYSQL_ROOT_PASSWORD: RootPwd
       MYSQL_DATABASE: mqttdata
-      MYSQL_USER: liva
-      MYSQL_PASSWORD: liva
+      MYSQL_USER: mysqlUser
+      MYSQL_PASSWORD: mysqlPwd
     ports:
       - "3306:3306"
     networks:
@@ -77,8 +77,8 @@ services:
       - MQTT_PORT=1883
       - MQTT_TOPIC=sensor/data
       - MYSQL_HOST=mariadb_web
-      - MYSQL_USER=liva
-      - MYSQL_PASSWORD=liva
+      - MYSQL_USER=mysqlUser
+      - MYSQL_PASSWORD=mysqlPwd
       - MYSQL_DB=mqttdata
     networks:
       - internal
