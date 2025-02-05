@@ -65,7 +65,7 @@ services:
       dockerfile: python/Dockerfile
     container_name: mqtt_listener
     volumes:
-      - ./scripts:/scripts
+      - ./python/scripts:/scripts
     working_dir: /scripts
     ports:
       - "5678:5678"

@@ -6,7 +6,7 @@ RUN apk add --no-cache gcc musl-dev linux-headers
 # Installer python pakker
 RUN pip install paho-mqtt mysql-connector-python debugpy
 
-COPY ./scripts /scripts
+COPY ./python/scripts /scripts
 WORKDIR /scripts
 
 CMD ["python", "-m", "debugpy", "--listen", "0.0.0.0:5678", "mqtt_listener.py"]
