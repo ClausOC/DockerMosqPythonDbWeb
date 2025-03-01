@@ -39,6 +39,7 @@ def check_and_create_table(connection, table_name):
     cursor.close()
 
 def insert_into_db(payload):
+    print(f"Connecting to database...")
     connection = None
     try:
         connection = mysql.connector.connect(
@@ -50,6 +51,7 @@ def insert_into_db(payload):
         )
         check_and_create_table(connection, 'mqttdata_received')
         
+        print(f"Ready to insert payload: {payload}")
         cursor = connection.cursor()
         query = "INSERT INTO mqttdata_received (json, data) VALUES (%s, %s)"
         values = (payload, payload) # payload er en JSON-streng 

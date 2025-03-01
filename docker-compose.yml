@@ -33,6 +33,7 @@ services:
 
   # Nginx webserver
   nginx:
+    container_name: nginx
     build:
       context: .
       dockerfile: nginx/Dockerfile
@@ -46,6 +47,7 @@ services:
 
   # PHP-FPM service
   php:
+    container_name: php
     build:
       context: .
       dockerfile: php/Dockerfile
@@ -60,10 +62,10 @@ services:
 
   # Python MQTT Listener service
   mqtt_listener:
+    container_name: mqtt_listener
     build:
       context: .
       dockerfile: python/Dockerfile
-    container_name: mqtt_listener
     volumes:
       - ./python/scripts:/scripts
     working_dir: /scripts
@@ -75,7 +77,7 @@ services:
     environment:
       - MQTT_BROKER=mqtt5_web
       - MQTT_PORT=1883
-      - MQTT_TOPIC=sensor/data
+      - MQTT_TOPIC=sensor\data
       - MYSQL_HOST=mariadb_web
       - MYSQL_USER=mysqlUser
       - MYSQL_PASSWORD=mysqlPwd
